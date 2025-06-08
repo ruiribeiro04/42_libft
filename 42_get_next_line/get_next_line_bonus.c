@@ -6,7 +6,7 @@
 /*   By: ruiferna <ruiferna@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:21:45 by ruiferna          #+#    #+#             */
-/*   Updated: 2025/05/01 16:22:51 by ruiferna         ###   ########.fr       */
+/*   Updated: 2025/06/08 23:01:42 by ruiferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static char	*ft_read_buffer(int fd, char *stash)
 	if (!buff)
 		return (NULL);
 	bytes_read = 1;
-	while (bytes_read > 0 && !ft_strchr(stash, '\n'))
+	while (bytes_read > 0 && !ft_strchr_gnl(stash, '\n'))
 	{
 		bytes_read = read(fd, buff, BUFFER_SIZE);
 		if (bytes_read == -1)
 			return (free(stash), free(buff), NULL);
 		buff[bytes_read] = '\0';
 		temp = stash;
-		stash = ft_strjoin(temp, buff);
+		stash = ft_strjoin_gnl(temp, buff);
 		if (temp)
 			free(temp);
 	}
@@ -49,7 +49,7 @@ static char	*ft_extract_line(char *stash)
 		i++;
 	if (stash[i] == '\n')
 		i++;
-	line = ft_substr(stash, 0, i);
+	line = ft_substr_gnl(stash, 0, i);
 	return (line);
 }
 
@@ -70,7 +70,7 @@ static char	*ft_save_rest(char *stash)
 		free(stash);
 		return (NULL);
 	}
-	rest = ft_strdup(stash + i);
+	rest = ft_strdup_gnl(stash + i);
 	if (!rest)
 		return (free(stash), NULL);
 	free(stash);
